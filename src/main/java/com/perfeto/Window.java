@@ -1,15 +1,16 @@
 package com.perfeto;
 
-import com.sun.org.apache.bcel.internal.generic.FADD;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Window implements Runnable {
 
     private JFrame jFrame;
     private Box[][] boxes;
+    private Timer timer;
 
     public void run() {
         initFrame();
@@ -27,6 +28,37 @@ public class Window implements Runnable {
         jFrame.setVisible(true);
         jFrame.setResizable(false);
         jFrame.setTitle("Life game");
+        jFrame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == 32) {
+                    LifeGameContract.DEBUG_MODE = !LifeGameContract.DEBUG_MODE;
+
+                    return;
+                }
+
+                if (e.getKeyCode() == 38) {
+                    if (LifeGameContract.FPS >= 50 ) {
+                        System.out.println("down");
+                        LifeGameContract.FPS -= 50;
+                        timer.setDelay(LifeGameContract.FPS);
+                    }
+
+                    return;
+                }
+
+                if (e.getKeyCode() == 40) {
+                    if (LifeGameContract.FPS <= 1000) {
+                        System.out.println("up");
+                        LifeGameContract.FPS += 50;
+                        timer.setDelay(LifeGameContract.FPS);
+                    }
+
+                    return;
+                }
+
+            }
+        });
     }
 
     private void initBoxes() {
@@ -49,18 +81,18 @@ public class Window implements Runnable {
                                             [(y + sy + LifeGameContract.UNIVERSE_HEIGHT) % LifeGameContract.UNIVERSE_HEIGHT].cell);
 
 
-
-        for (int x = 10; x < 15; x++){
-
-            boxes[x][10].cell.setStatus(Status.LIFE);
-            boxes[x][10].setColor();
-        }
+//
+//        for (int x = 10; x < 15; x++){
+//
+//            boxes[x][10].cell.setStatus(Status.LIFE);
+//            boxes[x][10].setColor();
+//        }
 
     }
 
     private void initTimer() {
         TimerListener tl = new TimerListener();
-        Timer timer = new Timer(LifeGameContract.FPS, tl);
+        timer = new Timer(LifeGameContract.FPS, tl);
         timer.start();
     }
 

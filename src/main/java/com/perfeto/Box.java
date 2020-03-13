@@ -16,10 +16,22 @@ public class Box extends JPanel {
         setBackground(LifeGameContract.getColor(Status.NONE));
         //setBorder(BorderFactory.createLineBorder(Color.BLACK));
         addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
-                cell.turn();
+                if (e.getButton() == 1) {
+                    cell.runLife();
+                    return;
+                }
+
+                if (e.getButton() == 2) {
+                    cell.runTurn();
+                    return;
+                }
+
+                if (e.getButton() == 3) {
+                    cell.runDeath();
+                    return;
+                }
             }
         });
     }

@@ -10,7 +10,7 @@ public enum Status {
         switch (this) {
 
             case NONE:
-                return (around >= 3) ? BORN : NONE;
+                return (around == 3) ? BORN : NONE;
 
             case LIFE:
                 return (around <= 1 || around >= 4) ? DIED : LIFE;

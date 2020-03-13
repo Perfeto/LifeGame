@@ -56,11 +56,31 @@ public class Cell {
         this.status = status;
     }
 
-    public void turn() {
+    public void runTurn() {
+        if (status == Status.LIFE) {
+            this.status = Status.NONE;
+        } else {
+            this.status = Status.LIFE;
+        }
+
         for (Cell cell : nearCells) {
             cell.setStatus(cell.status.isCell() ? Status.NONE : Status.LIFE);
         }
+    }
 
+    public void runLife() {
+        this.status = Status.LIFE;
 
+        for (Cell cell : nearCells) {
+            cell.setStatus(Status.LIFE);
+        }
+    }
+
+    public void runDeath() {
+        this.status = Status.NONE;
+
+        for (Cell cell : nearCells) {
+            cell.setStatus(Status.NONE);
+        }
     }
 }
