@@ -32,6 +32,8 @@ public class Box extends JPanel {
                     cell.runDeath();
                     return;
                 }
+
+
             }
         });
     }

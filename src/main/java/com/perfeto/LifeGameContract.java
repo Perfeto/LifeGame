@@ -8,7 +8,8 @@ public class LifeGameContract {
     public static final int BOX_SIZE = 10;
     public static final int UNIVERSE_WIDTH = 100;
     public static final int UNIVERSE_HEIGHT = 100;
-    public static int FPS = 300;
+    public static int FPS = 50;
+    public static PopulationState POPULATION_STATE = PopulationState.STABILITY;
 
     public static Color getColor(Status status) {
         switch (status) {

@@ -7,10 +7,19 @@ public enum Status {
     DIED;       // 2
 
     public Status step1(int around) {
-        switch (this) {
+        if (LifeGameContract.POPULATION_STATE == PopulationState.DEATH) {
+            return NONE;
+        }
 
+        switch (this) {
             case NONE:
-                return (around == 3) ? BORN : NONE;
+                if (LifeGameContract.POPULATION_STATE == PopulationState.DEVELOPMENT) {
+                    return (around >= 3) ? BORN : NONE;
+                } else if (LifeGameContract.POPULATION_STATE == PopulationState.STABILITY) {
+                    return (around == 3) ? BORN : NONE;
+                } else if (LifeGameContract.POPULATION_STATE == PopulationState.SUNSET) {
+                    return this;
+                }
 
             case LIFE:
                 return (around <= 1 || around >= 4) ? DIED : LIFE;

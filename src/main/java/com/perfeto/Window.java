@@ -27,34 +27,53 @@ public class Window implements Runnable {
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
         jFrame.setResizable(false);
-        jFrame.setTitle("Life game");
+        jFrame.setTitle("Life game. Mode STABILITY");
         jFrame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == 32) {
-                    LifeGameContract.DEBUG_MODE = !LifeGameContract.DEBUG_MODE;
+                System.out.println(e.getKeyCode());
 
-                    return;
-                }
+                switch (e.getKeyCode()) {
 
-                if (e.getKeyCode() == 38) {
-                    if (LifeGameContract.FPS >= 50 ) {
-                        System.out.println("down");
-                        LifeGameContract.FPS -= 50;
-                        timer.setDelay(LifeGameContract.FPS);
-                    }
+                    case 32:
+                        LifeGameContract.DEBUG_MODE = !LifeGameContract.DEBUG_MODE;
+                        return;
 
-                    return;
-                }
+                    case 38:
+                        if (LifeGameContract.FPS >= 50) {
+                            System.out.println("down");
+                            LifeGameContract.FPS -= 50;
+                            timer.setDelay(LifeGameContract.FPS);
+                        }
+                        return;
 
-                if (e.getKeyCode() == 40) {
-                    if (LifeGameContract.FPS <= 1000) {
-                        System.out.println("up");
-                        LifeGameContract.FPS += 50;
-                        timer.setDelay(LifeGameContract.FPS);
-                    }
+                    case 40:
+                        if (LifeGameContract.FPS <= 1000) {
+                            System.out.println("up");
+                            LifeGameContract.FPS += 50;
+                            timer.setDelay(LifeGameContract.FPS);
+                        }
+                        return;
 
-                    return;
+                    case 81:
+                        LifeGameContract.POPULATION_STATE = PopulationState.DEATH;
+                        jFrame.setTitle("Life game. Mode DEATH");
+                        return;
+
+                    case 87:
+                        LifeGameContract.POPULATION_STATE = PopulationState.SUNSET;
+                        jFrame.setTitle("Life game. Mode SUNSET");
+                        return;
+
+                    case 69:
+                        LifeGameContract.POPULATION_STATE = PopulationState.STABILITY;
+                        jFrame.setTitle("Life game. Mode STABILITY");
+                        return;
+
+                    case 82:
+                        LifeGameContract.POPULATION_STATE = PopulationState.DEVELOPMENT;
+                        jFrame.setTitle("Life game. Mode DEVELOPMENT");
+                        return;
                 }
 
             }
