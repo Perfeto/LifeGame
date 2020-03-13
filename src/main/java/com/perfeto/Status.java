@@ -19,9 +19,12 @@ public enum Status {
                     return (around == 3) ? BORN : NONE;
                 } else if (LifeGameContract.POPULATION_STATE == PopulationState.SUNSET) {
                     return this;
+                } else if (LifeGameContract.POPULATION_STATE == PopulationState.FULL_LIFE) {
+                    return (around == 3) ? BORN : NONE;
                 }
 
             case LIFE:
+
                 return (around <= 1 || around >= 4) ? DIED : LIFE;
 
             default:
@@ -44,6 +47,10 @@ public enum Status {
     }
 
     public boolean isCell (){
-        return this == LIFE || this == DIED; // TODO try add born
+        if (LifeGameContract.POPULATION_STATE == PopulationState.FULL_LIFE){
+            return this == LIFE || this == DIED || this == BORN;
+        } else {
+            return this == LIFE || this == DIED;
+        }
     }
 }

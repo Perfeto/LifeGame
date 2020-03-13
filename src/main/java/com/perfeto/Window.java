@@ -31,8 +31,6 @@ public class Window implements Runnable {
         jFrame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println(e.getKeyCode());
-
                 switch (e.getKeyCode()) {
 
                     case 32:
@@ -73,6 +71,11 @@ public class Window implements Runnable {
                     case 82:
                         LifeGameContract.POPULATION_STATE = PopulationState.DEVELOPMENT;
                         jFrame.setTitle("Life game. Mode DEVELOPMENT");
+                        return;
+
+                    case 84:
+                        LifeGameContract.POPULATION_STATE = PopulationState.FULL_LIFE;
+                        jFrame.setTitle("Life game. Mode FULL_LIFE");
                         return;
                 }
 
